@@ -1,25 +1,24 @@
 ### Τεχνολογία Λογισμικού - Εργαστήριο
 
-__Zoom:__
-
-    Meeting ID: 956 3491 4993
-    Passcode: το όνομα του repo
 
 Έναρξη εργαστηρίου:
 
-    Πέμπτη, 18/2/2021, 09:00πμ
+    Πέμπτη, 17/2/2021, 11:00πμ - εργαστήριο Γαληνός
 
 ---
 
-##### Περιβάλλον εργασίας
+##### Lab 1: Περιβάλλον εργασίας
 
-Για την υλοποίηση των εργασιών του εργαστηρίου θα πρέπει να εργαστείτε σε ένα Unix/Linux terminal. Θα αξιοποιήσετε κάποιες από τις ήδη διαθέσιμες εντολές του shell, αλλά θα χρειαστεί να εγκαταστήσετε και κάποια νέα προγράμματα.
+Για την υλοποίηση των εργασιών του εργαστηρίου θα πρέπει να εργαστείτε σε ένα Unix/Linux terminal. Θα ξεκινήσουμε με ένα περιβάλλον εργασίας σε μια διαθέσιμη διανομή (πχ ubuntu) και αργότερα θα εργαστείτε στην εγκατάσταση ενός λειτουργικού από τον πηγαίο κωδικά του.  
 
-Θα εργαστείτε καθένας στο δικό του περιβάλλον εκτέλεσης και θα πρέπει να εξοικειωθείτε με τον τρόπο που σας εξυπηρετεί καλύτερα. _Ενδεικτικά_ μπορείτε να επιλέξετε μπορείτε να αξιοποιήσετε μία από τις πιο κάτω _use yur own device_ επιλογές:
+Θα αξιοποιήσετε κάποιες από τις ήδη διαθέσιμες εντολές του shell, αλλά θα χρειαστεί να εγκαταστήσετε και κάποια νέα προγράμματα.
+
+Θα εργαστείτε καθένας στο δικό του περιβάλλον εκτέλεσης και θα πρέπει να εξοικειωθείτε με τον τρόπο που σας εξυπηρετεί καλύτερα.
+Απότερος σκοπός είναι να δουλέψετε σε ένα σύστημα linux χωρίς systemd, όπως αναφέρουν οι οδηγίες του μαθήματος (https://courses-ionio.github.io/projects/dokey/).
+_Πριν όμως καταφέρετε να κάνετε αυτό_ μπορείτε να επιλέξετε μπορείτε να αξιοποιήσετε μία από τις πιο κάτω _use your own device_ επιλογές:
  * Αξιοποίηση ενός _reusable & disposable_ **linux docker container**, _οδηγίες πιο κάτω_
  * Ήδη εγκατεστημένο linux, πχ ως dual boot, όποια διανομή σας βολεύει/αρέσει
  * Εγκατάσταση ενός linux εντός virtual box
- * Αξιοποίηση Windows Linux Subsystem εφόσον το laptop σας τρέχει Win10, οδηγίες [εδώ](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
  * Χρήση _persistent live ubuntu usb_ (επιτρέπει την εκτέλεση XUbuntu Desktop περιβάλλοντος το οποίο διατηρεί τις αλλαγές που κάνετε, πχ εγκατάσταση προγραμμάτων)
    - Ακουλουθήστε [αυτές](https://www.howtogeek.com/howto/14912/create-a-persistent-bootable-ubuntu-usb-flash-drive/) τις οδηγίες και δημιουργήστε το δικό σας persistent live usb (αρκεί ένα usb flash drive 8GB, προτείνεται __USB3__)
 
@@ -29,18 +28,19 @@ __Zoom:__
 
 Εγκαταστήστε στο συστημά σας το [docker](https://www.docker.com/).
 * Ξεκινήστε ένα `container` βασισμένο πχ στο Ubuntu 20.04 `image`, μελετήστε [εδώ](https://www.docker.com/resources/what-container) τη διαφορά/σχέση images-containers:  
-`docker run --name ionio-sw-lab -d -it ubuntu:20.04 `
+`docker run --name ionio-sw-lab-2022 -it -p 8080:4000 ubuntu:20.04`
     * Η παράμετρος `--name` ονοματίζει τον container ώστε να μπορούμε να το σταματήσουμε/ξεκινήσουμε εύκολα διατηρώντας της αλλαγές που κάνουμε
-    * Η παράμετρος `--it` εξασφαλίζει ότι ο container, αφού δεν το ζητάμε να εκτελέσει κάποια εντολή ή πρόγραμμα, δεν θα τερματιστεί με την ολοκλήρωση της εντολής
+    * Η παράμετρος `-it` εξασφαλίζει ότι ο container, αφού δεν το ζητάμε να εκτελέσει κάποια εντολή ή πρόγραμμα, δεν θα τερματιστεί με την ολοκλήρωση της εντολής
+    * Η παράμετρος `-p` κάνει port mapping από το 8080 του μηχανήματός μας στο 4000 εντός του νέου container... τώρα δε μας χρειάζεται, αλλά θα το βρούμε μπροστά μας ;-)
     * Η διανομή που ξεκινάμε είναι `ubuntu` έκδοση `20.04`
-    * _Tip_ Εκτελέστε την εντολή `docker ps` για να επιβεβαιώσετε ότι ο container σας τρέχει, να δείτε το container id του και το όνομά του:
+    * _Tip_ Εκτελέστε σε ένα άλλο terminal την εντολή `docker ps` για να επιβεβαιώσετε ότι ο container σας τρέχει, να δείτε το container id του και το όνομά του:
     ```
     CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-    16a2dc0d7c03        ubuntu:20.04        "/bin/bash"         About an hour ago   Up About an hour                        ionio-sw-lab
+    16a2dc0d7c03        ubuntu:20.04        "/bin/bash"         About an hour ago   Up About an hour                        ionio-sw-lab-2022
     ```
 
-* Συνδεθείτε στον container σας για να ξεκινήσουμε να δουλεύουμε εντός αυτού.  
-`docker attach ionio-sw-lab`  
+* Λογικά είστε ήδη εντός του container `ionio-sw-lab-2022`, αν για κάποιο λόγο δεμ είστε, συνδεθείτε στον container σας για να ξεκινήσουμε να δουλεύουμε εντός αυτού.  
+`docker attach ionio-sw-lab-2022`  
 θα πρέπει να βρεθείτε εντός του container, σε ένα terminal και να μπορείτε να εκτελέσετε τυπικές εντολές bash:
 ```
 root@16a2dc0d7c03:/# pwd
@@ -62,13 +62,13 @@ hello
     * Αν τώρα εκτελέσετε `docker ps` **δεν** θα βλέπετε τον container σας, γιατί έχει σταματήσει. Εκτελέστε `docker ps -a` για να δείτε και τους σταματημένους containers:  
     ```
     CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
-    16a2dc0d7c03        ubuntu:20.04        "/bin/bash"         About an hour ago   Exited (0) 2 minutes ago                       ionio-sw-lab
+    16a2dc0d7c03        ubuntu:20.04        "/bin/bash"         About an hour ago   Exited (0) 2 minutes ago                       ionio-sw-lab-2022
     ```
 
 * Ξεκινάμε, πάλι:  
-```docker start ionio-sw-lab```  
+```docker start ionio-sw-lab-2022```  
 και συνδεόμαστε στον container:  
-```docker attach ionio-sw-lab```  
+```docker attach ionio-sw-lab-2022```  
 ελέγχουμε αν οι αλλαγές μας έχουν διατηρηθεί:
 ```
 root@16a2dc0d7c03:/# ls workspace/
@@ -117,7 +117,7 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
 
 ---
 
-##### CV
+##### Lab2: CV (Jekyll)
 
 Για την εργασία cv θα πρέπει να αξιοποιήσουμε αρχικά το Jekyll (static site generator) και στη συνέχεια pandoc.  
 Φυσικά (!) θα δουλέψουμε μέσα στο docker container που έχουμε ήδη φτιάξει.. οπότε κάντε τα δέοντα docker start και attach.  
@@ -167,26 +167,17 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
         ```
         * Ας δούμε το site μας... `jekyll serve --host 0.0.0.0 &`. Το site είναι διαθέσιμο στο `http://localhost:4000` (και σε κάθε άλλη ip που ακούει ο container αφού χρησιμοποιήσαμε το `--host 0.0.0.0`). Πώς θα το δούμε;
             * Από το terminal πχ με lynx. Εγκαθιστούμε `apt-get install lynx` - χρησιμοποιούμε `lynx localhost:4000/site`
-            * Από το pc μας?
-                * Το localhost του docker container __δεν__ είναι το localhost του μηχανήματός μας! Αλλά μπορούμε να κάνουμε port mapping από ένα port του μηχανήματός μας σε ένα port εντός του docker. Αυτό, βέβαια, κανονικά γίνεται κατά τη δημιουργία του container.. αλλά θα τα καταφέρουμε..  
-                Πώς;
-                    * Βγαίνουμε από τον container μας και τον τερματίζουμε:  
-                    `docker stop __container_name__`
-                    * Δημιουργούμε ένα image με βάση τον container μας:  
-                    `docker commit __container_name__ __container_name__-img`
-                    * Ξεκινάμε ένα __νέο__ container με βάση το image που μόλις δημιουργήσαμε __και__ port mapping από το 8080 του μηχανήματός μας στο 4000 εντός του νέου container:  
-                    `docker run --name ionio-sw-lab2 -p 8080:4000 -it ionio-sw-lab-img`
-                    * Πάμε στο folder `cd /workspace/jekyll/` και τρέχουμε πάλι το `jekyll serve --host 0.0.0.0 &`
-                    * Πάμε σε ένα browser στο pc μας, δίνουμε διεύθυνση `http://0.0.0.0:8080/site/` και... βλέπουμε το site της μίας γραμμής που έχουμε φτιάξει ως εδώ.
-        * Cleaning up.. έχουμε ένα άχρηστο πλέον container, το ionio-sw-lab της περασμένης εβδομάδας, αφού μόλις δημιουργήσαμε ένα κλώνο του με port mapping. Ας το ξεφορτωθούμε και ας αλλάξουμε όνομα στο νέο container μας.
-            * Διαγραφή παλιού container `docker rm ionio-sw-lab`
-            * Μετονομασία νέου `rename ionio-sw-lab2 ionio-sw-lab` (μπορεί να γίνει όσο τρέχει)
+            * Από το pc μας, τώρα θα αξιοποιηθεί η παράμετρος `-p 8080:4000` που είχαμε δώσει όταν δημιουργήσαμε τον container. Η παράμετρος αυτή ενεργοποιεί port mapping από το host λειτουργικό μας προς τον container, άρα ό,τι είναι προσβάσιμο στον container στο port 4000 θα είναι προσβάσιμο στο host λειτουργικό μας στο port 8080 (_αλλά όχι το αντίστροφο από τον container προς το host! δεν υπάρχει κάποια τρύπα ασφάλειας_).  
+            Άρα πολύ απλά στο βασικό μας λειτουργικό, μέσα από ένα brower ανοίγουμε τη διεύθυνση http://localhost:8080 και βλέπουμε τη σελίδα που _servήρει_ το Jekyll.  
 
     * Τώρα ας ξεκινήσουμε να φτιάχνουμε ένα site που θα περιέχει το cv μας.
         * Νέο site.. = νέο folder για το project μας  
         `mkdir /workspace/cv` και ας μεταβούμε σε αυτό  
         `cd /workspace/cv`
-        * Αρχικοποιούμε όπως πριν... _bundler κλπ_
+        * Αρχικοποιούμε όπως πριν, δεν ξεχνάμε τα προκαταρκτικά βήματα (εντός του folder που φιλοξενεί το νέο site μας):
+            * `bundle init`
+            * Προσθήκη gem στο Gemfile
+            * `bundler`
         * Δημιουργούμε folder `mkdir /workspace/cv/site` και __διαχωρίζουμε μορφή από περιεχόμενο__:
             * Αρχείο view `vi /workspace/cv/site/index.html`, προσέξτε την αλλαγή με την προσθήκη δύο γραμμών `---` στην αρχή του αρχείου και `{{...}}` με ονόματα μεταβλητών:  
             ```
@@ -214,7 +205,8 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
              - wki.pe/friedrich_nietzsche
              - twitter.com/tinynietzsche
             ```
-            * Τρέχουμε το `jekyll serve --host 0.0.0.0 &` (αν τρέχει κάποιο άλλο jekyll, κάντε το kill) ελέγχουμε και... βλέπουμε ένα site στο οποίο τα δεδομένα διαχωρίζονται από την εμφάνιση!
+            * Εκτελούμε `bundle exec jekyll build`
+            * Και... τρέχουμε το `jekyll serve --host 0.0.0.0 &` (αν τρέχει κάποιο άλλο jekyll, οπότε δεν θα τρέξει το νέο jekyll serve instance, κάντε το `kill` με βάση το PID του) ελέγχουμε και... βλέπουμε ένα site στο οποίο τα δεδομένα διαχωρίζονται από την εμφάνιση!
             * Αλλάζουμε το index.html αρχείο για να δείχνει και τα url με ένα for loop:
             ```
              ---
@@ -247,7 +239,7 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
                 * Τώρα κάθε φορά που θα κάνουμε ένα commit, θα τρέχει το jekyll και ό,τι παράγεται θα πηγαίνει στο github pages ως rendered html site.
         * Αφήνουμε το github repo ως έχει και πάμε πίσω στο container μας.
             * Πάμε στο `cd /workspace/github` και yet another jekyll site: `mkdir cv`, `cd cv`.
-        * Αξιοποιούμε το bundler που εγκαταστήσαμε νωρίτερα `bundle init`
+        * Αξιοποιούμε το bundler που εγκαταστήσαμε νωρίτερα, άρα `bundle init`
         * Προσθέτουμε στο τέλος του Gemfile που μόλις δημιουργήθηκε:
             ```
             gem "jekyll", "~> 3.9.0"
@@ -307,7 +299,8 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
                 Άρα..
         * Commit και push..
             * `git commit -m "Ιnitial CV commit"`
-            * `git push -u origin master`  
+            * `git push -u origin master`
+                * **Προσοχή εδώ, το github πλεον δεν δέχεται password authentication, θα πρέπει να πάτε στο `Github.com > Settings > Developer settings > Personal access tokens` και να εκδόσετε ένα νέο token (που να τα κάνει όλα ή να κάνετε refine τις επιλογές πρόσβασης που παρέχετε) και αυτό το token θα είναι το password που θα χρησιμοποιείτε**  
             Με το push στο __github.com__ το site γινεται _build_ και ανεβαίνει και στο __github.io__ (Github Pages)!
 
 **ToDo (σας, <ins>για αυτή την εβδομάδα</ins>):**
@@ -318,8 +311,149 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
 4. Κάντε commit την πρόοδό σας
 
 ---
+##### Lab3 & 4: Github submodule
 
-##### CV + Netlify
+Θα αξιοποιήσουμε ένα έτοιμο CV project ως submodule το οποίο παράγει αυτόματα μια PDF έκδοση του CV μας.
+
+* Προσθέτουμε ως submodule το repo `https://github.com/mrzool/cv-boilerplate` στο φάκελο του cv μας:  
+```
+$ /workspace/cv-2022-1 (master)$ git submodule add https://github.com/mrzool/cv-boilerplate _2pdf
+Cloning into '/workspace/cv-2022-1/_2pdf'...
+remote: Enumerating objects: 318, done.
+remote: Counting objects: 100% (28/28), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 318 (delta 15), reused 17 (delta 8), pack-reused 290
+Receiving objects: 100% (318/318), 822.81 KiB | 2.77 MiB/s, done.
+Resolving deltas: 100% (190/190), done.
+$ /workspace/cv-2022-1 (master)$ ls _2pdf/
+details.yml  makefile  output.pdf  preview.png  README.md  template.tex
+```
+Ήδη το περιεχόμενο του submodule repo έχει προστεθεί στο φάκελό μας, αλλά υπάρχουν και dependencies που χρειάζονται:
+
+* Εγκατάσταση tinytex (χρειάζεται; δοκιμάστε να το παραλείψετε):  
+    ```
+    cd ~
+    apt install wget
+    wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+    ```
+    * Προσθήκη στο PATH  
+    `vi` το αρχείο `~/.bashrc` και προσθήκη σε αυτό `export PATH=$PATH:$HOME/bin`
+    * Εγκατάσταση xelatex  
+    ```apt-get install texlive-xetex```
+    * Χρήση `tlmgr` για εγκατάσταση απαιτούμενων latex packages
+        * Για κάθε package εκτελέστε πχ `tlmgr install polyglossia`
+        * Αν δε βρίσκετε το package, ψάξτε το `tlmgr search multicol`
+    * Εγκατάσταση pandoc  
+    ```apt install pandoc```
+
+* Εντός του `/workspace/cv-2022-1/_2pdf` εκτελέστε `make`  
+Η εντολή `make` ουσιαστικά εκτελεί: `pandoc details.yml -o output.pdf --template=template.tex --pdf-engine=xelatex`
+    * _Τρέχει; Αν λείπει κάποιο font εκτελέστε `fc-list` για να δείτε τι fonts υπάρχουν διαθέσιμα και αντικαταστήστε το `mainfont` στο αρχείο `details.yml`_
+    * Ελέγξτε το παραγόμενο pdf αρχείο μέσω ενός browser στο url: http://localhost:8080/_2pdf/output.pdf
+        * Το βλέπετε; https://github.com/jekyll/jekyll/issues/55
+        * Μεταφέρετέ το (με `mv` ή `cp`) κάπου που θα το βλέπετε
+    * Αλλάξτε το περιεχόμενο του details.yml και ξαναδημιουργήστε το pdf (και ξαναμεταφέρετέ το)
+
+* Δημιουργήστε ένα pdf με βάση τα _δικά_ σας δεδομένα τα οποία βρίσκονται στο αρχείο `/workspace/cv-2022-1/_data/details.yml` και το οποίο να βρίσκεται στο root folder του repo σας με όνομα αρχείο `cv.pdf`
+
+* Κάντε `git add` και `commit` το `cv.pdf`, όχι το φάκελο `_2pdf` και κάντε push στο GitHub.
+* Δείτε το pdf cv σας στο github pages.
+
+**ToDo (σας, <ins>έχετε χρόνο μέχρι την 7η εβδομάδα</ins>):**
+1. _Συγχρονίστε οπτικά την html και pdf έκδοση του cv σας.
+    * Τσεκάρετε τακτικά locally, όταν είστε ικανοποιημένοι ανεβάστε στο github με push
+2. Φροντίστε για έχετε καταγράψει στο asciinema τη δουλεία σας
+3. Κάντε commit την πρόοδό σας
+
+**Follow-up (του lab 3)**  βασισμένο στο https://github.com/courses-ionio/help/discussions/287#discussion-3912896  
+Τι γίνεται εάν προσθέσουμε ως submodule κώδικα τον οποίο θέλουμε να αλλάξουμε και να κάνουμε commit. _Αν το submodule δεν είναι δικό μας repo, τότε το commit/push -όπως είναι λογικό- αποτυγχάνει :-(_  
+Ας το δοκιμάσουμε:
+1. Κάνουμε clone το repo που ήδη περιέχει ένα _ξένο_ submodule:
+    ```
+    # git clone https://github.com/riggas-ionio/cv-2022-1.git
+    Cloning into 'cv-2022-1'...
+    remote: Enumerating objects: 17, done.
+    remote: Counting objects: 100% (17/17), done.
+    remote: Compressing objects: 100% (12/12), done.
+    remote: Total 17 (delta 2), reused 17 (delta 2), pack-reused 0
+    Unpacking objects: 100% (17/17), 1.85 KiB | 52.00 KiB/s, done.
+    ```
+
+2. Ελέγχουμε το φάκελο του submodule ο οποίος είναι κενός.
+    ```
+    cd cv-2022-1
+    ls -al
+    total 28
+    drwxr-xr-x 5 root root 4096 Mar  9 19:51 .
+    drwxr-xr-x 9 root root 4096 Mar  9 19:51 ..
+    drwxr-xr-x 8 root root 4096 Mar  9 19:51 .git
+    -rw-r--r-- 1 root root   82 Mar  9 19:51 .gitmodules
+    ```  
+    Το submodule είναι _συνδεδεμένο_ με το repo μας, αλλά όταν κάνουμε clone το repo μας, ο κώδικας του submodule δεν κατεβαίνει.
+
+3. Ας κατεβάσουμε τον κώδικα του submodule. Στον αρχικό φάκελο του repo μας:
+    ```
+    git submodule update --init
+    ls -al _2pdf/
+    total 368
+    drwxr-xr-x 2 root root   4096 Mar  9 20:14 .
+    drwxr-xr-x 5 root root   4096 Mar  9 19:51 ..
+    -rw-r--r-- 1 root root     30 Mar  9 20:14 .git
+    -rw-r--r-- 1 root root     11 Mar  9 20:14 .gitignore
+    -rw-r--r-- 1 root root   6069 Mar  9 20:14 README.md
+    -rw-r--r-- 1 root root   1366 Mar  9 20:14 details.yml
+    -rw-r--r-- 1 root root    190 Mar  9 20:14 makefile
+    -rw-r--r-- 1 root root  35914 Mar  9 20:14 output.pdf
+    -rw-r--r-- 1 root root 299228 Mar  9 20:14 preview.png
+    -rw-r--r-- 1 root root   2866 Mar  9 20:14 template.tex    
+    ```
+
+4. Δοκιμάζουμε να κάνουμε μια αλλαγή σε ένα από τα αρχεία του submodule (_το οποίο *δεν* είναι δικό μας repo_):
+    ```
+    cd _2pdf/
+    vi details.yml
+    git add details.yml
+    git commit -m "Changed a file in (someone else's) submodule"
+    [detached HEAD 3ebf9e1] Changed a file in submodule
+     1 file changed, 1 insertion(+), 1 deletion(-)
+    git push origin master
+    Username for 'https://github.com': riggas-ionio
+    Password for 'https://riggas-ionio@github.com':
+    remote: Permission to mrzool/cv-boilerplate.git denied to riggas-ionio.
+    fatal: unable to access 'https://github.com/mrzool/cv-boilerplate/': The requested URL returned error: 403
+    ```  
+    και βέβαια αποτυγχάνει το push σε ξένο repo!  
+    Θα ήταν δόκιμο να κάνουμε pull request, αντί push, αφού το repo είναι ξένο.  
+    Αν όμως _για κάποιο λόγο_ πρέπει να χρησιμοποιούμε ένα repo το οποίο περιέχει submodule και θέλουμε να κάνουμε και push στο submodule, δεν έχουμε παρά να _οικειοποιηθούμε_ κάνοντάς το fork και **αντικαθιστώντας** το _ξένο_ submodule με το _οικειομποιημένο_ (forked) submodule.
+
+5. Σβύνουμε ό,τι κάναμε ως εδώ (το folder με το αρχικό clone)..  
+    ```
+    cd /workspace
+    rm -rf cv-2022-1
+    ```  
+    και εκτελούμε πάλι τα βήματα 1 και 2.
+
+6. (ή νέο 3) Σβύνουμε το φάκελο του submodule αλλά και ό,τι πληροφορία περιέχει το git για το submodule.
+    ```
+    git rm --cached _2pdf/
+    rm -rf _2pdf/
+    ```
+
+7. Προσθέτουμε το δικό μας (οικειοποιημένο, forked) repo και το αποθηκεύουμε σε φάκελο όλοιο με αυτό που μόλις σβύσαμε:  
+    ```
+    git submodule add https://github.com/riggas-ionio/cv-boilerplate _2pdf
+    ```  
+    τα αρχεία κατεβαίνουν από το **δικό** μας repo, άρα ότι αλλαγές και εάν κάνουμε στο submodule μπορούμε να τις κάνουμε commit/push.. γιατί πολύ απλά είναι δικό μας repo!   
+    **Αλλά** προσοχή:  
+    **Αν..**  
+    κάνετε αλλαγές σε αρχεία του submodule και τα κάνετε commit εντός του submodule, _αλλά δεν τα κάνετε push_  
+    **και**  
+    κάνετε commit και push το root φάκελο (που περιέχει το submodule), τότε στο github θα λείπει το commit του submodule που θα βρίσκεται ακόμη στο δίσκο σας,  
+    **οπότε** θα βλέπετε `HTTP 404 Error` 😱.
+
+---
+
+##### Lab 5: CV + Netlify
 
 Έχουμε ήδη αξιοποιήσει τις δυνατότητες που παρέχουν τα Github & Jekyll για continuous deployment σε Github pages.  
 Τώρα θα αξιοποιήσουμε και τις δυνατότητες που παρέχει το [Netlify](https://www.netlify.com/) για serverless δημοσιοποίηση διαδικτυακού περιεχομένου.  
@@ -346,116 +480,72 @@ Fork το αποθετήριο του μαθηματος https://github.com/cour
     * Στο github repository έχετε περιλάβει ενα _config.yml αρχείο, πρόκειται για jekyll config file το οποίο στο github (πάλι) δεν ήταν απαραίτητο, αλλά για το Netlify χρειάζεται. Τα ελάχιστα δεδομένα που πρέπει να περιέχει είναι τιμή για το όνομα του `repository` που συνδέετε με το Netlify
 
 Σε κάθε push που κάνετε στο github γίνεται πλέον αυτόματα trigger ένα deploy στο githib pages και ένα ακόμη στο Netlify.  
-🌍🔋__Think before you push__ (to the repo)! Test locally! Αν όχι για άλλο λόγο, γιατί το free account του Netlify σας δίνει 300 build minutes/month,
+🌍🔋 __Think before you push__ (to the repo)! Test locally! Αν όχι για άλλο λόγο, γιατί το free account του Netlify σας δίνει 300 build minutes/month, άρα κάθε commit που δεν παράγει σωστό αποτέλεσμα είναι _(περιορισμένα) resources που πάνε χαμένα_.
 
 **ToDo (σας, <ins>για αυτή την εβδομάδα</ins>):**  
 * Εξερευνήστε περισσότερο το Netlify, πχ χαρίστε ένα πιο κομψό url στο site σας.
 
 ---
 
-##### CV 2 PDF
+##### Lab 6: CV (Github pages + Netlify) + αυτόματη περίληψη του pdf cv σε κάθε commit.
 
-Μπορείτε αν αξιοποιήσετε pandoc για μετατροπή yml + html template σε latex και στη συνέχεια να μετατρέψετε το latex σε pdf με κάποιο template.
+Έχουμε ήδη δει πώς μπορούμε να πετύχουμε Continuous Deployment του html CV σε Github pages + Netlify. Πώς όμως μπορούμε να αυτοματοποιήσουμε τη διαδικασία και για τη PDF έκδοση του CV; Δλδ κάθε φορά που κάνουμε μια αλλαγή στο index.html ή στο details.yml και κάνουμε commit το pdf να δημιουργείται αυτόματα και να περιλαμβάνεται στο τελευταίο commit;
 
-Εδώ θα αξιοποιήσουμε την python βιβλιοθήκη weasyprint.org
+* Θα αξιοποιήσουμε [Git hooks](https://www.atlassian.com/git/tutorials/git-hooks)  τα οποία είναι _"scripts that run automatically every time a particular event occurs in a Git repository. They let you customize Git’s internal behavior and trigger customizable actions at key points in the development life cycle"_  
+    * Σε κάθε git repo folder υπάρχει ένας κρυφός φάκελος, ο `.git/hooks`, ο οποίος περιέχει ποικίλα hook samples. Για κάθε sample hook το filename του δηλώνει πότε εκτελείται.
+    * Χρησιμοποιήστε [αυτή](https://stackoverflow.com/questions/3284292/can-a-git-hook-automatically-add-files-to-the-commit/12802592#12802592) την τεχνική για να μπορέσετε να προσθέσετε ένα αρχείο (το `cv.pdf`) στο τελευταίο commit.
+        * Για να έχετε πάντα διαθέσιμο το πιο επικαιροποιημένο `cv.pdf`, εντός του κατάλληλου git hook μπορείτε να παράγεται το `cv.pdf` χρησιμοποιώντας ό,τι κάνατε στο Lab 3 για την παραγωγή pdf από δεδομένα σε yaml μορφή και ένα προτυπο tex αρχείο.
+    * Τροποποιήστε το `index.html` ώστε να περιέχει ένα link που να δείχνει στο `cv.pdf` αρχειο.
 
-* Για να εγκαταστήσουμε weasyprint χρειαζόμαστε.. μερικά προαπαιτούμενα:
-`apt update` και στη συνέχεια  
-`apt-get install build-essential python3-dev python3-pip python3-setuptools python3-wheel python3-cffi libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info`
-* Εγκατάσταση weasyprint μέσω pip:
-`pip3 install weasyprint`
-
-* _Όσο το jekyll τρέχει_ μπορούμε να ζητήσουμε από το weasyprint να μετατρέψει ό,τι βλέπουμε στο http://localhost:4000 σε pdf. Πώς;
-    * Εντός του `/workspace/github/cv-1`, δημιουργούμε ένα folder για το pdf cv μας `mkdir pdf`
-    * Στη συνέχεια εκεί εκτελούμε `weasyprint http://localhost:4000/ pdf/cv.pdf`
-        * Ελέγχουμε το αποτέλεσμα μέσα από ένα browser στο host μηχάνημά μας.. :-)
-    * Τροποποιούμε το `index.html` αρχείο ώστε να έχει ένα link προς το pdf cv μας.
-
-* Πώς μπορούμε να καθορίσουμε την print version εμφάνιση του cv μας;
-    * Το weasyprint μπορεί να λάβει παράμετρο ένα css με _οδηγίες_ για το styling της print version του cv
-    * Δημιουργούμε το `_template/pdf.css` με ενδεικτικό περιεχόμενο:
-    ```
-    @page {
-      margin: 0cm; /* Set margin on each page */
-      padding: 1cm; /* Set padding on each page */
-    }
-    ```  
-    και εκτελούμε  
-    `weasyprint http://localhost:4000/ pdf/cv.pdf -s _template/pdf.css`
-        * Η εμφάνιση του παραγώμενου pdf άλλαξε! Βεβλιτώστε ακόμη περισσότερο: https://weasyprint.readthedocs.io/en/stable/tutorial.html
-
-
-* Πώς όμως μπορούμε να αυτοματοποιήσουμε τη διαδικασία; Δλδ κάθε φορά που κάνουμε μια αλλαγή στο index.html ή στο details.yml και κάνουμε commit το pdf να δημιουργείται αυτόματα;
-    * Git [hooks](https://www.atlassian.com/git/tutorials/git-hooks)
-        * Συνδυάστε [αυτό](https://stackoverflow.com/questions/30376741/run-script-before-commit-and-include-the-update-in-this-commit) και [αυτό](https://stackoverflow.com/questions/3284292/can-a-git-hook-automatically-add-files-to-the-commit/12802592#12802592).
-
-* To link που εμφανίζεται στο pdf είναι σωστό;
-    * Πώς μπορείτε να το αποφύγετε αυτό;
-        * Δοκιμάστε κάτι [τέτοιο](https://www.w3schools.com/css/css3_mediaqueries.asp).
-        * ή αξιοποιήστε το `_template/pdf.css` για να κρύψετε το link.
+**ToDo (σας, <ins>για αυτή την εβδομάδα</ins>):**  
+* Συνδυάστε όλα τα προηγούμενα ώστε σε κάθε commit να παράγεται νέο `cv.pdf` και αυτό να προστίθεται στο τελευταίο commit.
+* Μπορείτε να κάνετε refine τη διαδικασία, ώστε νέο pdf να παράγεται (και συνεπώς να προστίθεται στο τελευταίο commit) μόνο εφόσον έχει υπάρξει αλλαγή σε αρχείο που επηρεάζει το `cv.pdf` (πχ στο yaml ή το tex αρχείο); Γιατί να σπαταλάτε processing resources εάν απλά έχει αλλάξει η γραμματοσειρά πχ στο `index.html`;
 
 ---
 
-##### GIT COMMIT/MQTT 2 Slack
+##### Lab 7: CV + Continuous Integration και user notifications
 
-Αποκτήστε ένα free account στο [Slack](https://slack.com/) και δημιουργήστε ένα workspace.
-* Εντός του workspace δημιουργήστε ένα νέο channel, έστω `sw-notifications`.
-* Σε ένα browser μεταβείτε στο https://api.slack.com/apps και επιλέξτε `Create New App`.
-    * Δώστε ένα όνομα, πχ `my-sw-notif-app` και διαλέξτε το workspace στο οποίο αυτό το app θα κοινοποιεί.
-    * Το app πρέπει να δημιουργήθηκε, από τις επιλογές που έχετε στο ui διαλέξτε  
-    ```
-    Incoming Webhooks
-    Post messages from external sources into Slack.
-    ```
-    και εκεί κάνετε toggle το `Activate Incoming Webhooks`.  
-    Στο τέλος της σελίδας διαλέξτε `Add New Webhook to Workspace` και επιλέξτε σε ποιο channel να γίνεται η αποστολή των μηνυμάτων, πχ `notifications`.
-    Αφήστε τη σελίδα να περιμένει, παρατηρήστε ότι σας προβάλει ένα παράδειγμα curl post προς το channel σας (έχουν κρυφτεί τα keys):  
-    ```
-    curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/____/____/____
-    ```
+Δε θα ήταν καλά να είχαμε (όπου προτιμούμε.. στην κινητή μας συσκευή, στο laptop/desktop μας) ειδοποιήσεις οποτεδήποτε συμβαίνει κάτι ενδιαφέρον, πχ γίνεται commit μια νέα έκδοση του cv μας;
 
-Εντός του container που δουλεύουμε όλες αυτές τις εβδομάδες...
-* Εγκαταστήστε το `curl` για να κάνουμε μια πρώτη δοκιμή.  
-`apt install curl`
-* Στη συνέχεια δοκιμάστε να κάλεσετε το curl όπως δείχνει η πιο πάνω εντολή, αλλά με το slack url που αντιστοιχεί στο δικό σας workspace/channel.
-    * Αν όλα έγιναν σωστά, πρέπει στο slack να λάβατε ένα _Hello, World_ μήνυμα από την εφαρμογή σας :-)
-* Μεταβείτε εντός του folder που δουλέυουμε το cv (`cd /workspace/github/cv-1/`).
-* Εκτελέστε εκεί  
-```
-hash=$(git rev-parse --short HEAD)
-msg=$(git log -1 --pretty=%B)
-curl -X POST -H 'Content-type: application/json' --data '{"text":"Last CV commit ('$hash'): '"$msg"'"}' https://hooks.slack.com/services/___/___/___
-```
-* Προσθέστε τον κώδικα στο hook της περασμένης εβδομάδας.
-* Επιπλέον, Χρησιμοποιήστε το κώδικα:  
-```
-if ! lsof -i:4000
-then
-  echo Starting Jekyll
-  bundle exec jekyll serve --host 0.0.0.0 &
-else
-  echo Jekyll running on 4000
-fi
-```
-για να ελέγξετε αν το Jekyll ήδη τρέχει.
-* Κάντε κάποια αλλαγή σε ένα αρχείο του repo σας και με το commit θα πρέπει να λάβετε ένα μήνυμα στο slack.
+* Εγκαταστήστε το `ntfy` (αρκεί `pip3 install ntfy`) και (αρχικά) κάνετε το απαραίτητο configuration για να στέλνει τις ειδοποιήσεις του στο syslog του συστήματός σας.
+     - Βεβαιωθείτε ότι το `/var/log/syslog` υπάρχει και ενημερώνεται. Αν όχι, βεβαιωθείτε για την εγκατάσταση του σχετικου deamon με την εντολή `sudo apt-get install --reinstall rsyslog` και στη συνέχεια βεβαιωθείτε για την ενεργοποίησή του με την εντολή `sudo service rsyslog restart`.
+     - Ελέγξτε ότι το syslog γράφεται, εκτελέστε την εντολή `logger Hello logger service!` (δεν χρεάζεται quotes) και ελέγξτε ότι γράφτηκε το μήνυμα στο αρχείο syslog με την εντολή `tail /var/log/syslog`.
+     - Ελέγξτε ότι έχει εγκατασταθεί το (σε λίγο) απαραίτητο python module `syslog-py`.
+* Κάνετε configure το ntfy (δημιουργήστε ή ενημερώστε το `~/.ntfy.yml` αρχείο σας) ώστε να στέλνει τις ειδοποιήσεις του στο syslog (_Seriously τώρα.. ο μόνος λόγος που το στέλνουμε στο syslog είναι για να το κάνετε asciinema_:-).
+* Επιλέξτε ένα άλλο backend για να προωθεί το `ntfy` τις ειδοποιήσεις. Στο φάκελο `/usr/local/lib/python3.8/dist-packages/ntfy/backends/` (ή κάτι ανάλογο, αναλόγως της έκδοσης python που τρέχετε και του λειτουργικού σας) υπάρχουν ποικίλα backends τα οποία μπορείτε να ενεργοποιήσετε.
+    * _Ή ακόμη καλύτερα να χρησιμοποιήσετε ως πρότυπα για να φτιάξετε ένα δικό σας!_
 
-Ας δουλέψουμε με ένα mqtt broker.
-* Εγκαταστήστε το [mosquitto](https://mosquitto.org/): `apt-get install mosquitto`
-    * Τρέχει;... δοκιμάστε: `/etc/init.d/mosquitto status`, αν το αποτέλεσμα είναι ` * mosquitto is not running` ελέγξτε το logging που έγινε κατά την εγκατάσταση.
-    Αν αναφέρει `invoke-rc.d: policy-rc.d denied execution of start.` τότε:  
+**ToDo (σας, <ins>για αυτή την εβδομάδα</ins>):**  
+* Επεξεργαστείτε τα git hooks της περασμένης εβδομάδας έτσι ώστε όποτε γίνεται commit μια νέα έκδοση του `cv.pdf` να λαμβάνετε μια ειδοποίηση από το `ntfy`.
+* Αξιοποιήστε το μηχανισμό [slack incoming webhooks](https://api.slack.com/legacy/custom-integrations/messaging/webhooks) ώστε να λαμβάνεται τις ειδοποιήσεις σας σε ένα channel εντός ενός workspace σας.
+
+---
+
+##### Lab 8: CV + Continuous Integration και MQTT notifications
+
+Δημιουργήστε ένα (free) account στο https://ide.goorm.io/. Δημιουργήστε ένα container βασισμένο σε python.  
+Μόλις αποκτήσατε ένα cloud based linux machine ;-). Ξεκινάμε..  
+
+* Εγκαταστήστε το [mosquitto](https://mosquitto.org/) ένα mqtt broker: `apt-get install mosquitto`
+    * Τρέχει;... δοκιμάστε: `/etc/init.d/mosquitto status`, αν το αποτέλεσμα είναι  
+    `mosquitto is not running`  
+    ελέγξτε το logging που έγινε κατά την εγκατάσταση.
+    Αν αναφέρει  
+    `invoke-rc.d: policy-rc.d denied execution of start.`  
+    τότε εκτελέστε:  
     ```
-    printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
+    printf '#!/bin/sh \n exit 0' > /usr/sbin/policy-rc.d
     /etc/init.d/mosquitto start
     /etc/init.d/mosquitto status
     ```
     και το πρόβλημα πρέπει να λύθηκε, αν όχι _google it!_
-* Εγκαταστήστε και αντίστοιχους clients: `apt-get install mosquitto-clients`
+* Εγκαταστήστε και αντίστοιχους clients:  
+`apt-get install mosquitto-clients`
     * Δοκιμάστε... `mosquitto_sub -t "notifications" &`
     και.. `mosquitto_pub -m "Hello World from mosquitto_pub client" -t "notifications"`  
-    Εμφανίστηκε το μήνυμα;
+    Εμφανίστηκε το μήνυμα; Όλα καλά, αλλιώς.. _debug it!_
 
-* Εγκαταστήστε το mqttwarn:
+* Εγκαταστήστε το [mqttwarn](https://github.com/jpmens/mqttwarn):
     ```
     pip3 install --upgrade
     pip3 install mqttwarn
@@ -471,7 +561,7 @@ fi
     ```
     * Προσθέστε το config τις απαραίτητες ρυθμίσεις για το [http](https://github.com/jpmens/mqttwarn/blob/master/HANDBOOK.md#http).
         * Τροποποιήστε κατάλληλα το post action ώστε να κάνει post στο url του slack api endpoint σας.  
-        Σημεία στο αρχείο init που χρειάζεται να παρέμβετε είναι τα:
+        Σημεία στο αρχείο init που χρειάζεται να <u>παρέμβετε</u> (_μην καταργήσετε συνολικά το .ini αρχείο_) είναι τα:
         ```
         ; name the service providers you will be using.
         launch    = file, log, http
@@ -498,234 +588,32 @@ fi
 
         [notifications]
         targets = http
-        ```        
+        ```    
+        Χρησιμοποιήστε το slack hook της περασμένης εβδομάδας.    
     * Ίσως χρειαστεί λίγο debugging ο κώδικας του http module :-)  
     Αν παρατηρήσετε τα logging νημύματα του mqttwarn προκύπτει σφάλμα κατά την εκτέλεση του αρχείο `/usr/local/lib/python3.8/dist-packages/mqttwarn/services/http.py`: ***'Request' object has no attribute 'add_data'***.  
     Κάνετε edit το αρχείο τροποποιώντας τη γραμμή:  
     `#request.add_data(encoded_params)` σε  
-    `request.data = bytes(encoded_params, 'utf-8')`
+    `request.data = bytes(encoded_params, 'utf-8')`  
     Αν κάνετε publish στο mosquitto ένα json το οποίο αποδέχεται το slack, θα πρέπει να δείτε το μήνυμά σας στο slack.  
-    Αν το μήνυμα δεν είναι κατάλληλα μορφοποιημένο για το slack, θα βλέπετε στο mqttwarn log ***HTTP Error 400: Bad Request***    
-    * :fireworks: Αφού δεν υπάρχει module για το slack api (που να δουλεύει με webhook)... γιατί δε φτιάχνετε ένα; _λίγη αλλαγή το module http απαιτείται μόνο!_  
-    :fireworks: :fireworks: Αφού το φτιάξετε, γιατί δεν το ανεβάζετε και στο github! Κάντε και ένα pull request στο mqttwarn και ίσως γίνετε μέρος του δημόσιου ανοιχτού λογισμικού! :-)
-
----
-
-##### HUGINN Agents
-
-Αν έχετε δοκιμάσει το [IFTTT](https://ifttt.com/) θα έχετε καταλάβει ότι είναι _ανάγκη_ ορισμένα tasks να εκτελούνται μόνα τους και _(μόνο)_ όταν κάτι ενδιαφέρον υπάρχει να ενημερώνεστε.  
-Το Huginn είναι ένα free και open source περιβάλλον στο οποίο μπορείτε να προγραμματίσετε την εκτέλεση _tasks_ από ένα σύνολο από διαθέσιμους agents.  
-[read the docs](https://github.com/huginn/huginn) | [view introductory screencast](http://vimeo.com/61976251)
-
-Πάμε:...
-* Πρώτη προσπάθεια με ένα έτοιμο στημένο huginn docker image.
-    * Σε ένα terminal (_εκτός του container που παιδεύουμε_): `docker run -it -p 3000:3000 --name ionio-sw-lab-huginn huginn/huginn`
-    * Δοκιμάστε σε ένα browser (στο host, όχι σε κάποιο container): http://localhost:3000/
-        * Credentials: admin | password
-    * Ok,.. τώρα really, [read the docs](https://github.com/huginn/huginn)!
-    * Hands-on test:
-        * Μεταβείτε στο Agents και προσθέστε δύο (χαμηλά, κουμπί **+ New Agent**):
-            * Πρώτα προσθέστε ένα Agent τύπου `Website Agent`: scrapes a website, XML document, or JSON feed and creates Events based on the results.  
-                * **Type**: `Website Agent`
-                * **Name**: `Ionio news feed scrapper`
-                * **Schedule**: `Every 10μ` ***! Υπερβολικό, απλά για να δούμε την εκτέλεση του Agent! Αυξήστε την περίοδο για οποιοδήποτε άλλο (όχι testing) σύστημα***
-                * **Keep events**: `7 days`
-                * **Options**:
-                ```
-                {
-                  "expected_update_period_in_days": "2",
-                  "url": "https://ionio.gr/gr/news/all-news-f1-all-f2-all/",
-                  "type": "html",
-                  "mode": "on_change",
-                  "extract": {
-                    "url": {
-                      "xpath": "//*[@class=\"news-list-block\"]/a/@href",
-                      "value": "."
-                    },
-                    "title": {
-                      "xpath": "//*[@class=\"news-list-block\"]/a",
-                      "value": "normalize-space(.)"
-                    }
-                  }
-                }
-                ```
-                Δοκιμάστε τη λειτουργία του Agent με εκτέλεση `Dry Run`. Αν όλα είναι σωστά, πρέπει να πήρατε απόκριση, σαν:  
-                ```
-                [
-                  {
-                    "url": "https://ionio.gr/gr/news/20465",
-                    "title": "ΒΥΡΩΝ: Η Ελληνική Επανάσταση «ζωντανεύει» με ένα παιχνίδι!"
-                  },
-                  {
-                    "url": "https://ionio.gr/gr/news/20464",
-                    "title": "Μνημόνιο συνεργασίας μεταξύ του Ιονίου Πανεπιστημίου και του Συνδέσμου Ημερήσιων Περιφερειακών Εφημερίδων"
-                  },
-                  ...
-                  {
-                    "url": "https://ionio.gr/gr/news/20212",
-                    "title": "Μελέτη και κατασκευή κτηρίου για τη στέγαση του Τμήματος Περιφερειακής Ανάπτυξης του Ιονίου Πανεπιστημίου στη Λευκάδα"
-                  }
-                ]
-                ```
-                Αυτά είναι τα events που θα παράγει αυτός ο Agent. Ας μελετήσουμε λίγο τι έγινε και πώς.
-
-                * Αποθηκεύουμε τον Agent
-                * Στη σελίδα `Agents` επιλέγουμε από το μενού (στη γραμμή του _Ionio news feed scrapper_) την επιλογή `Run` ώστε να εκτελεστεί ο Agent άμεσα.
-                * Περιοδικά, όταν τρέχει κάποιος Agent, εμφανίζεται ένα εικονίδιο, πάνω δεξιά στο toolbar:  
-                ![Huginn jobs](_img/huginn-jobs.png)  
-                Κλικ σε αυτό ή απλά μεταβείτε στο url <host:port>/jobs.
-                * Επιπλέον δείτε τα events που έχουν παραχθεί από το μενού `Events`.  
-                Είναι όλα τα ζεύγη url - title από τα news που αντλήθηκαν από το https://ionio.gr/gr/news/all-news-f1-all-f2-all/.
-                * Στη λίστα των Agents, κλικ στον Agent `Ionio news feed scrapper` και μελετήστε τα `Details` του, τα `Events` που έχει παράγει, τα `Logs` εκτέλεσής του.
-                Περιοδικά ο Agent τρέχει πάλι, αλλά όσο δεν αλλάζει το περιεχόμενο της https://ionio.gr/gr/news/all-news-f1-all-f2-all/ δεν παράγονται νέα events.
-
-            * Στη συνέχεια προσθέστε ένα Agent τύπου `Post Agent`: receives events from other agents (or runs periodically), merges those events with the Liquid-interpolated contents of payload, and sends the results as POST (or GET) requests to a specified url.
-                * **Type**: `Post Agent`
-                * **Name**: `POST to slack`
-                * **Schedule**: `Every 10μ` ***! Αυτό δεν είναι υπερβολικό, αν πρόκειται να λαμβάνουμε notifications, ας είναι αυτά συχνά..***
-                * **Keep events**: `7 days`
-                * **Sources**: `Ionio news feed scrapper`  ***! Αυτό είναι η είσοδος αυτού του Agent.***
-                * **Options**:
-                ```
-                {
-                  "post_url": "https://hooks.slack.com/services/___/___/___",
-                  "expected_receive_period_in_days": "1",
-                  "content_type": "json",
-                  "method": "post",
-                  "headers": {
-                    "Content-type": "application/json"
-                  },
-                  "payload": {
-                    "text": "{{ title }}; more on {{url}}"
-                  },
-                  "emit_events": "false",
-                  "no_merge": "false",
-                  "output_mode": "clean"
-                }
-                ```
-                _Χρησιμοποιήστε το slack hook της περασμένης εβδομάδας._  
-                Δοκιμάστε τη λειτουργία του Agent με εκτέλεση `Dry Run`. Στο dry run, προσθέστε (απλά κλικ) ένα από τα events που εμφανίζονται για να χρησιμοποιηθεί ως demo data.  
-                Αν όλα είναι σωστά, πρέπει να πήρατε απόκριση, σαν (στο huginn):  
-                ```
-                [00:00:00] INFO -- : Dry Run started
-                [00:00:00] INFO -- : Dry Run finished
-                ```
-                και να λάβατε ένα notification στο slack.
-
-                * Αποθηκεύουμε τον Agent
-                * Αν πάμε στον Agent `Ionio news feed scrapper` και εκτελέσουμε `Re-emit all events`, τότε αυτά τα events θα φτάσουν στον Agent `POST to slack` και από εκεί στο slack channel σας.
-
-        * Μεταβείτε στη σελίδα /diagram για να δείτε το γράφο των Agents που χρησιμοποιείτε.
-
-    * Μελετήστε τα διαθέσιμα Agents, βρίσκονται στο φάκελο `huginn/app/models/agents/post_agent.rb`
+    Αν το μήνυμα δεν είναι κατάλληλα μορφοποιημένο για το slack, θα βλέπετε στο mqttwarn log ***HTTP Error 400: Bad Request***, αρκεί να στείλετε ένα ορθό json formatted μήνυμα στο hook.    
 
 **ToDo (σας, <ins>για αυτή την εβδομάδα</ins>):**  
-* Εξερευνήστε περισσότερο το Haginn, δοκιμάστε agents όπως:
-    * Website Agent για να λαμβάνετε μέσω API τον καιρό σε κάποια τοποθεσία.
-        * Χρησιμοποιήστε το openweathermap.org
-            * _Fetch hourly forecast for 48 hours for Corfu_:  
-            API call  
-            https://api.openweathermap.org/data/2.5/onecall?lat=39.666664&lon=19.749997&appid=YOURAPIID
-    * SlackAgent, για να μη χρειάζεται να κάνουμε απλά HTTP POST στο slack.
-        * Χρησιμοποιήστε [Liquid filters](https://shopify.dev/docs/themes/liquid/reference/filters) για να μορφοποιήσετε το μήνυμα που θα στείλετε στο slack.  
-        Πχ. το  
-        ```
-        {"dt":1616698800,"temp":281.95,"weather":"Clear"}
-        ```
-        σε
-        ```
-        Thu, Mar 25, 2021 - 12:00 :: Clear, temp=9.8oC
-        ```
----
+* Επεξεργαστείτε τα git hooks της περασμένης εβδομάδας έτσι ώστε όποτε γίνεται commit μια νέα έκδοση του `cv.pdf` να στέλνετε ένα mqtt message στο mosquitto που τρέχει στο goorm container σας και από εκεί να γίνεται κατάλληλη μορφοποίηση και προώθηση στο slack webhook σας.  
+Ο goorm container σας είναι προσβάσιμος μέσω url που μπορείτε να βρείτε στο μενού `PROJECT > Running URL and Port`. Βρείτε σε port _ακούει_ ο mqtt broker και αν αυτό δεν είναι προσβάσιμο (ανοιχτό) φροντίστε να γίνει, αν χρειαστεί αξιοποιήστε το μηχανισμό `CONTAINER > Port Forwarding Configuration`.
 
-##### NTFY (see legacy/2020)
+* :fireworks: Αφού δεν υπάρχει module για το slack api (που να δουλεύει με webhook)... γιατί δε φτιάχνετε ένα; _λίγη αλλαγή το module http απαιτείται μόνο!_  
+:fireworks: :fireworks: Αφού το φτιάξετε, γιατί δεν το ανεβάζετε και στο github! Κάντε και ένα pull request στο mqttwarn και ίσως γίνετε μέρος του δημόσιου ανοιχτού λογισμικού! :-)
 
 ---
 
-##### JRNL.SH
+##### Lab 9: Terminal multiplexing: doing more than one thing on a single terminal
 
-Εντός του container που δουλεύουμε όλες αυτές τις εβδομάδες...
-* Δημιουργήστε ένα φάκελο `/workspace/journal`, δουλεύουμε σε αυτόν.
-* Εγκαθιστούμε:
-```
-pip3 install jrnl
-```
-* Χρησιμοποιούμε!:
-```
-jrnl yesterday: Thinking what to do on SW lab. Mix lots of scripts!
-Path to your journal file (leave blank for /root/.local/share/jrnl/journal.txt): /workspace/journal/journal.txt
-Do you want to encrypt your journal? You can always change this later [y/N] N
-[Journal 'default' created at /workspace/journal/journal.txt]
-[Entry added to default journal]
-```
-* Ας δούμε τι περιέχει αυτό το αρχείο:
-`less journal.txt `
-```
-[2021-04-14 09:00] Thinking what to do on SW lab.
-Mix lots of scripts!
-journal.txt (END)
-```
-:fireworks: Είναι ένα απλό text αρχείο. Και όλοι ξέτουν ότι Text + Git = :heart:
+Εγκαταστήστε το tmux ακολουθώντας τις οδηγίες: https://linuxize.com/post/getting-started-with-tmux/.  
+Το tmux σας δίνει τη δυνατότητα να έχετε πολλαπλά terminal sessions στο ίδιο παράθυρο.  
 
-* _Minor hack, ας βλέπουμε σε ποιο branch ειμαστε_ `vi  /root/.bashrc` και προσθήκη:
-    ```
-    parse_git_branch() {
-         git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-    }
-    export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
-    ```
-
-* Ας οργαγώσουμε τον επαγγελματικό μας χρόνο:
-    ```
-    git checkout -b work_journal
-    Switched to a new branch 'work_journal'
-    rm journal.txt
-    touch journal.txt
-    less journal.txt
-    ```
-    Και τώρα ας προσθέσουμε μερικά journal entries:
-    ```
-    jrnl yesterday: Kicked off new project. This project will not only make me wealthy, it will make me famous too. Could lead to a Turing Award.
-    [Entry added to default journal]
-    jrnl today: Project backlog is huge already. I might need a partner, I wonder can we split the Award?
-    [Entry added to default journal]
-    ```
-    Ας δούμε τι γίνεται στο journal μας `jrnl -to now`.
-    ```
-    git add .
-    git commit -m "Work journal"
-    ```
-
-* Ας οργαγώσουμε τον προσωπικό μας χρόνο:
-    ```
-    git checkout master
-    git checkout -b personal_journal
-    Switched to a new branch 'personal_journal'
-    rm journal.txt
-    touch journal.txt
-    less journal.txt
-    ```
-    Και τώρα ας προσθέσουμε μερικά journal entries:
-    ```
-    jrnl yesterday: Found out about a great journal terminal app. I will start using it!
-    [Entry added to default journal]
-    jrnl today: Loving the journal app already. All I now need is content! THINK!
-    [Entry added to default journal]
-    ```
-    Ας δούμε τι γίνεται στο journal μας `jrnl -to now`.
-    ```
-    git add .
-    git commit -m "Personal journal entries"
-    ```
-
-* Και τώρα git magic!
-    * Αναζήτηση σε όλα τα journals: `git branch | cut -c3- | xargs git grep "I"`
-    Αποτελέσματα σε όλα τα branches:
-    ```
-    personal_journal:journal.txt:I will start using it!
-    personal_journal:journal.txt:All I now need is content! THINK!
-    work_journal:journal.txt:I might need a partner, I wonder can we split the Award?
-    ```
-
-**ToDo (σας, <ins>για αυτή την εβδομάδα</ins>):**  
-* Εξερευνήστε περισσότερο τις δυνατότητες του jrnl μαζί με το git. Πχ δημιουργήστε ένα shared github repo και μοιραστείτε με κάποιον άλλο το work_journal σας αλλά κρατήστε ιδιωτικό το personal_journal.
+* Ξεκινήστε το tmux εντός ενός terminal σας εκτελώντας `tmux`. Δημιουργήθηκε ένα νέο session από το οποίο μπορείτε να εξέλθετε χωρίς να τερματιστεί με `Ctrl+b` `d`.
+* Από το βασικό σας terminal (εκτός του tmux) δημιουργήστε ένα νέο session με ονομασία `tmux new -s goorm`.
+    * Εντός του νέου session, συνδεθείτε στο goorm container της περασμένης εβδομάδας. Οδηγίες σύνδεσης στο μενού του Goorm: `CONTAINER > SSH Configuration`, όπου θα δημιουργήσετε ssh password.
+* Αξιοποιήστε το (ένα, μοναδικό) terminal παράθυρό σας για να εργαστείτε παράλληλα στο τοπικό μηχάνημά σας και στο goorm ssh session σας με εναλλαγή μεταξύ των tmux sessions.
+* Εξερευνήστε plugins τα οποία σας επιτρέπουν να κάνετε save και restore τα tmux sessions. 
